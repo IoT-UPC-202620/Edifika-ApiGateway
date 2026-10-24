@@ -38,6 +38,11 @@ public class RoutesConfig {
     @Value("${services.report.url}")
     private String reportServiceUrl;
 
+    @Value("${services.access.url}")
+    private String accessServiceUrl;
+
+    @Value("${services.telemetry.url}")
+    private String telemetryServiceUrl;
 
     @Bean
     public RouteLocator edifikaRoutes(RouteLocatorBuilder builder) {
@@ -95,6 +100,22 @@ public class RoutesConfig {
                 .route("reports-service", r -> r
                         .path("/api/v1/reports/**")
                         .uri(reportServiceUrl))
+
+                // IoT Access Management Service
+                .route("iot-access-iot", r -> r
+                        .path("/api/v1/iot/**")
+                        .uri(accessServiceUrl))
+                .route("iot-access-access", r -> r
+                        .path("/api/v1/access/**")
+                        .uri(accessServiceUrl))
+                .route("iot-access-edge", r -> r
+                        .path("/api/v1/edge/**")
+                        .uri(accessServiceUrl))
+
+                // IoT Telemetry Service
+                .route("iot-telemetry", r -> r
+                        .path("/api/v1/telemetry/**")
+                        .uri(telemetryServiceUrl))
                 .build();
     }
 }
